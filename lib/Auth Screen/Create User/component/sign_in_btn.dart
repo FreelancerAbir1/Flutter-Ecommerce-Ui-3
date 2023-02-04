@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,24 +11,24 @@ class SignInButton extends StatelessWidget {
     Key? key,
     required this.text,
     required this.txt,
-   required this.onPress,
+    required this.onPress,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          text,
-          style: const TextStyle(
-            color: kTextColor,
+    return GestureDetector(
+      onTap: onPress,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            text,
+            style: const TextStyle(
+              color: kTextColor,
+            ),
           ),
-        ),
-        GestureDetector(
-          onTap: onPress,
-          child: Text(
+          Text(
             txt,
             style: TextStyle(
               fontSize: 20.sp,
@@ -37,8 +36,8 @@ class SignInButton extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

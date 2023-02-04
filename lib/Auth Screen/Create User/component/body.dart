@@ -22,49 +22,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  Future createUserWithEmailAndPassword(context) async {
-    setState(() {
-      onReload = false;
-    });
-    try {
-      if (email.text.isNotEmpty && pass.text == rePass.text) {
-        final credential =
-            await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email.text,
-          password: pass.text,
-        );
-        if (credential.user != null) {
-          setState(() {
-            onReload = true;
-          });
-          Navigator.of(context).pushReplacementNamed(CompleteForm.route);
-        }
-      } else if (email.text.isNotEmpty && pass.text != rePass.text) {
-        setState(() {
-          onReload = true;
-        });
-        flutterToast(text: 'Password not match');
-      }
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        setState(() {
-          onReload = true;
-        });
-        flutterToast(text: 'The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        setState(() {
-          onReload = true;
-        });
-        flutterToast(text: 'The account already exists for that email.');
-      }
-    } catch (e) {
-      setState(() {
-        onReload = true;
-      });
-      flutterToast(text: '$e');
-    }
-  }
-
   bool onReload = true;
   final TextEditingController email = TextEditingController();
   final TextEditingController pass = TextEditingController();
@@ -72,16 +29,15 @@ class _BodyState extends State<Body> {
   bool obPassword = true;
   bool obRePassword = true;
 
-//! Flutter toast here
-  flutterToast({required text}) {
-    Fluttertoast.showToast(
-        msg: text,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 2,
-        backgroundColor: kPrimaryColor,
-        textColor: Colors.white,
-        fontSize: 16.0);
+  @override
+  void dispose() {
+    email.dispose();
+    pass.dispose();
+    rePass.dispose();
+    focusNode1.dispose();
+    focusNode2.dispose();
+    focusNode3.dispose();
+    super.dispose();
   }
 
   FocusNode focusNode1 = FocusNode();
@@ -172,7 +128,7 @@ class _BodyState extends State<Body> {
                                         Icons.remove_red_eye,
                                       )
                                     : const Icon(
-                                        Icons.remove_red_eye,
+                                        Icons.visibility_off,
                                         color: kPrimaryColor,
                                       )),
                             onChange: (value) {},
@@ -202,7 +158,7 @@ class _BodyState extends State<Body> {
                                         Icons.remove_red_eye,
                                       )
                                     : const Icon(
-                                        Icons.remove_red_eye,
+                                        Icons.visibility_off,
                                         color: kPrimaryColor,
                                       )),
                             onChange: (value) {},
@@ -255,5 +211,54 @@ class _BodyState extends State<Body> {
       return 'Please enter some text';
     }
     return null;
+  }
+
+  Future createUserWithEmailAndPassword(context) async {
+    setState(() {
+      onReload = false;
+    });
+    try {
+      if (email.text.isNotEmpty && pass.text == rePass.text) {
+        final credential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email.text,
+          password: pass.text,
+        );
+        if (credential.user != null) {
+          flutterToast(text: 'Create user successfully');
+          setState(() {
+            onReload = true;
+          });
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    CompleteForm(email: email, password: pass),
+              ));
+        }
+      } else if (email.text.isNotEmpty && pass.text != rePass.text) {
+        setState(() {
+          onReload = true;
+        });
+        flutterToast(text: 'Password not match');
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        setState(() {
+          onReload = true;
+        });
+        flutterToast(text: 'The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        setState(() {
+          onReload = true;
+        });
+        flutterToast(text: 'The account already exists for that email.');
+      }
+    } catch (e) {
+      setState(() {
+        onReload = true;
+      });
+      flutterToast(text: '$e');
+    }
   }
 }

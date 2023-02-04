@@ -31,9 +31,13 @@ class MyApp extends StatelessWidget {
           initialRoute: '/',
           routes: routes,
           theme: ThemeData(
-            appBarTheme:
-                const AppBarTheme(elevation: 0, foregroundColor: kPrimaryColor),
-            primarySwatch: Colors.green,
+            appBarTheme:   const AppBarTheme(
+          
+              backgroundColor: kTextLightColor,
+              elevation: 0,
+              foregroundColor: kTextColor,
+            ),
+            
             textTheme: Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
           ),
           //  home: child,

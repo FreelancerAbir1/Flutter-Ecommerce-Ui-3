@@ -7,17 +7,24 @@ class CustomFormField extends StatelessWidget {
   final Function(String)? onChange;
   final Widget suffix;
   final TextEditingController controller;
+  final Function(String) onFieldSubmitted;
+  final FocusNode focusNode;
   const CustomFormField({
     Key? key,
     required this.hintText,
     this.validator,
     this.onChange,
-    required this.suffix, required this.controller,
+    required this.suffix,
+    required this.controller,
+    required this.onFieldSubmitted,
+    required this.focusNode,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onFieldSubmitted: onFieldSubmitted,
+      focusNode: focusNode,
       controller: controller,
       decoration: InputDecoration(
           hintText: hintText,

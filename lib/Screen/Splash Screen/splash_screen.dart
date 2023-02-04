@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommecre_ui3/Auth%20Screen/Login%20Screen/login_screen.dart';
 
+import '../../Auth Screen/auth_state.dart';
 import '../../constant.dart';
 
 class SplashScreenCustom extends StatefulWidget {
@@ -19,10 +19,11 @@ class _SplashScreenCustomState extends State<SplashScreenCustom> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 1), () {
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => const LoginScreen(),
-      ));
+    Timer(
+        const Duration(
+          seconds: 2,
+        ), () {
+      Navigator.of(context).pushReplacementNamed(AuthState.route);
     });
   }
 

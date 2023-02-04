@@ -23,56 +23,16 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   bool obPassword = true;
-  Future signInWithEmailAndPassword(context) async {
-    setState(() {
-      onReload = false;
-    });
-    try { 
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email.text,
-        password: pass.text,
-      );
-      if (credential.user != null) {
-        setState(() {
-          onReload = true;
-        });
-        Navigator.of(context).pushReplacementNamed(HomeScreen.route);
-      }
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        setState(() {
-          onReload = true;
-        });
-        flutterToast(text: 'No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        setState(() {
-          onReload = true;
-        });
-        flutterToast(text: 'Wrong password provided for that user.');
-      }
-    }
-  }
-
-  FocusNode focusNode1 = FocusNode();
-  FocusNode focusNode2 = FocusNode();
   final TextEditingController email = TextEditingController();
   final TextEditingController pass = TextEditingController();
-//! Flutter toast here
-  flutterToast({required text}) {
-    Fluttertoast.showToast(
-        msg: text,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 2,
-        backgroundColor: kPrimaryColor,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
-
+  FocusNode focusNode1 = FocusNode();
+  FocusNode focusNode2 = FocusNode();
   @override
   void dispose() {
     email.dispose();
     pass.dispose();
+    focusNode1.dispose();
+    focusNode2.dispose();
     super.dispose();
   }
 
@@ -161,14 +121,14 @@ class _BodyState extends State<Body> {
                                         Icons.remove_red_eye,
                                       )
                                     : const Icon(
-                                        Icons.remove_red_eye,
+                                        Icons.visibility_off,
                                         color: kPrimaryColor,
                                       )),
                             onChange: (value) {},
                             keyboardType: TextInputType.emailAddress,
                             controller: pass,
                             hintText: 'must use 6 character',
-                            icon: Icons.password,
+                            icon: Icons.visibility,
                             labelText: 'password',
                             validate: buildValidate),
                         SizedBox(
@@ -214,5 +174,36 @@ class _BodyState extends State<Body> {
       return 'Please enter some text';
     }
     return null;
+  }
+
+  Future signInWithEmailAndPassword(context) async {
+    setState(() {
+      onReload = false;
+    });
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email.text,
+        password: pass.text,
+      );
+      if (credential.user != null) {
+        flutterToast(text: 'Signin successfully');
+        setState(() {
+          onReload = true;
+        });
+        Navigator.of(context).pushReplacementNamed(HomeScreen.route);
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        setState(() {
+          onReload = true;
+        });
+        flutterToast(text: 'No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        setState(() {
+          onReload = true;
+        });
+        flutterToast(text: 'Wrong password provided for that user.');
+      }
+    }
   }
 }
