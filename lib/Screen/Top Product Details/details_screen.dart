@@ -12,30 +12,6 @@ class DetailsScreen extends StatelessWidget {
   final int index;
   final List snapShot;
 
-  final cartFavCollection = FirebaseFirestore.instance
-      .collection('cart-items')
-      .doc(FirebaseAuth.instance.currentUser!.uid)
-      .collection('favourite-items');
-  Future addFavouriteItem() async {
-    return cartFavCollection.doc().set(
-      {
-        'name': snapShot[index]['name'],
-        'id': snapShot[index]['id'],
-        'price': snapShot[index]['price'],
-        'des': snapShot[index]['des'],
-        'img': snapShot[index]['img'],
-      },
-    ).then(
-      (value) => flutterToast(text: 'Item added'),
-    );
-  }
-
-  Future deleteFavouriteItem({required id}) async {
-    return cartFavCollection.doc(id).delete().then(
-          (value) => flutterToast(text: 'Item delete'),
-        );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,5 +76,29 @@ class DetailsScreen extends StatelessWidget {
       ),
       body: Body(snapShot: snapShot, index: index),
     );
+  }
+
+  final cartFavCollection = FirebaseFirestore.instance
+      .collection('cart-items')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .collection('favourite-items');
+  Future addFavouriteItem() async {
+    return cartFavCollection.doc().set(
+      {
+        'name': snapShot[index]['name'],
+        'id': snapShot[index]['id'],
+        'price': snapShot[index]['price'],
+        'des': snapShot[index]['des'],
+        'img': snapShot[index]['img'],
+      },
+    ).then(
+      (value) => flutterToast(text: ' Favourite Item added'),
+    );
+  }
+
+  Future deleteFavouriteItem({required id}) async {
+    return cartFavCollection.doc(id).delete().then(
+          (value) => flutterToast(text: 'Remove favourite Item'),
+        );
   }
 }

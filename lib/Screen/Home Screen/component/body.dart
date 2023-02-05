@@ -103,7 +103,7 @@ class _BodyState extends State<Body> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: List.generate(
-                  topProductSnapshot.length,
+                  5,
                   (index) => HomeProductCard(
                         snapshot: topProductSnapshot,
                         index: index,
@@ -138,7 +138,7 @@ class _BodyState extends State<Body> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: List.generate(
-                accessoriesSnapshot.length,
+                5,
                 (index) => HomeProductCard(
                   snapshot: accessoriesSnapshot,
                   index: index,
