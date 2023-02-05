@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    //Set the fit size (Find your UI design, look at the dimensions of the device screen and fill it in,unit in dp)
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       minTextAdapt: true,
@@ -27,23 +26,30 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'E-Commerce app',
-          // You can use the library anywhere in the app even in theme
           initialRoute: '/',
           routes: routes,
           theme: ThemeData(
-            appBarTheme:   const AppBarTheme(
-          
+            appBarTheme: const AppBarTheme(
               backgroundColor: kTextLightColor,
               elevation: 0,
               foregroundColor: kTextColor,
             ),
-            
-            textTheme: Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
+            colorScheme: const ColorScheme(
+              background: kPrimaryColor,
+              onBackground: Colors.red,
+              brightness: Brightness.light,
+              error: Colors.blue,
+              surface: Colors.yellow,
+              onError: Colors.orange,
+              onSecondary: Colors.black87,
+              onPrimary: Colors.yellowAccent,
+              onSurface: Colors.redAccent,
+              secondary: kPrimaryColor,
+              primary: kPrimaryColor,
+            ),
           ),
-          //  home: child,
         );
       },
-      //  child: const SplashScreenCustom(),
     );
   }
 }

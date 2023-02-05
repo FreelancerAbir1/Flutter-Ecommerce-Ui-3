@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../Top Product Details/details_screen.dart';
+ import '../../Top Product Details/details_screen.dart';
 import 'product_card.dart';
 
 class Body extends StatelessWidget {

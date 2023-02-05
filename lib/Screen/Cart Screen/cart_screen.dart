@@ -12,7 +12,7 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: const BottomMemo(),
       appBar: buildAppbar(text: 'Cart Screen', context: context),
-      body: Body(),
+      body: const Body(),
     );
   }
 

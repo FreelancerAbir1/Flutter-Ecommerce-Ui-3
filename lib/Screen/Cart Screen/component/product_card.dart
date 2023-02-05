@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../../../constant.dart';
 
-class ProductCard extends StatelessWidget {
-  const ProductCard({
+class CartProductCard extends StatelessWidget {
+  const CartProductCard({
     Key? key,
-    required this.snapShot,
+    required this.snapshot,
     required this.index,
     required this.onTap,
     this.onDismissed,
   }) : super(key: key);
-  final List snapShot;
+  final List snapshot;
   final int index;
   final Function() onTap;
   final Function(DismissDirection)? onDismissed;
@@ -26,7 +26,7 @@ class ProductCard extends StatelessWidget {
           shadowColor: kTextColor,
           child: ListTile(
             title: Text(
-              snapShot[index]['name'],
+              snapshot[index]['name'],
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: kTextColor,
@@ -35,12 +35,12 @@ class ProductCard extends StatelessWidget {
             leading: FittedBox(
               fit: BoxFit.cover,
               child: Image.network(
-                snapShot[index]['img'],
+                snapshot[index]['img'],
                 scale: 1.0,
               ),
             ),
             trailing: Text(
-              '${snapShot[index]['price']}৳',
+              '${snapshot[index]['price']}৳',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: kPrimaryColor,

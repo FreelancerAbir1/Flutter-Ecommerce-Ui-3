@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '../../../constant.dart';
 import '../../Complete Form/complete_form.dart';
 import '../../Login Screen/login_screen.dart';

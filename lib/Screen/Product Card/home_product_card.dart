@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../constant.dart';
 
-import '../../../constant.dart';
-
-class AccessoriesProductCard extends StatelessWidget {
-  const AccessoriesProductCard({
+class HomeProductCard extends StatelessWidget {
+  const HomeProductCard({
     Key? key,
-    required this.accessoriesSnapshot,
+    required this.snapshot,
     required this.index,
     required this.onTap,
   }) : super(key: key);
 
-  final List accessoriesSnapshot;
+  final List snapshot;
   final int index;
   final Function() onTap;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -21,8 +21,8 @@ class AccessoriesProductCard extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(kDefaultPadding.sp - 15.sp),
         child: Container(
-          height: 180.h,
-          width: 140.w,
+          height: 130.h,
+          width: 130.w,
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.grey,
@@ -32,14 +32,14 @@ class AccessoriesProductCard extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(
-                width: 140,
-                height: 140,
+                height: 100.h,
+                width: 100.w,
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 12.0.sp),
                   child: AspectRatio(
                     aspectRatio: 1.1,
                     child: Image.network(
-                      accessoriesSnapshot[index]['img'],
+                      snapshot[index]['img'],
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -47,7 +47,11 @@ class AccessoriesProductCard extends StatelessWidget {
               ),
               Flexible(
                 child: Text(
-                  '${accessoriesSnapshot[index]['name']} \n  ${accessoriesSnapshot[index]['price']}৳',
+                  '${snapshot[index]['name']} \n  ${snapshot[index]['price']}৳',
+                  style: const TextStyle(
+                    color: kTextColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],

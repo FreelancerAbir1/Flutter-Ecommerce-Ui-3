@@ -12,7 +12,7 @@ class WelcomeSubtitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: Theme.of(context).textTheme.subtitle1!.copyWith(
+      style: Theme.of(context).textTheme.titleMedium!.copyWith(
             color: kTextColor,
           ),
     );

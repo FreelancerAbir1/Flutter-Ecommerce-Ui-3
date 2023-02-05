@@ -9,6 +9,12 @@ const kTextLightColor = Color(0xFFFAFAFA);
 const kDefaultFontBold = TextStyle(fontWeight: FontWeight.bold);
 const kDefaultFontNormal = TextStyle(fontWeight: FontWeight.normal);
 const kDefaultPadding = 21.0;
+
+    Orientation orientation = Orientation.landscape;
+//! userProfile stream fetch
+final userProfileCollection = FirebaseFirestore.instance
+    .collection('user-profile')
+    .doc(FirebaseAuth.instance.currentUser!.email);
 //! collection stream fetch
 final cartItemCollection = FirebaseFirestore.instance
     .collection('cart-items')

@@ -16,7 +16,7 @@ class SubmitText extends StatelessWidget {
       text,
       style: Theme.of(context)
           .textTheme
-          .subtitle1!
+          .titleMedium!
           .copyWith(color: kPrimaryColor, fontSize: 24.sp),
     );
   }

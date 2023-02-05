@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../constant.dart';
 import 'component/body.dart';
@@ -35,18 +34,6 @@ class DetailsScreen extends StatelessWidget {
     return cartFavCollection.doc(id).delete().then(
           (value) => flutterToast(text: 'Item delete'),
         );
-  }
-
-//! Flutter toast here
-  flutterToast({required text}) {
-    Fluttertoast.showToast(
-        msg: text,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 2,
-        backgroundColor: kPrimaryColor,
-        textColor: Colors.white,
-        fontSize: 16.0);
   }
 
   @override

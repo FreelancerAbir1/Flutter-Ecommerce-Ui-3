@@ -9,11 +9,10 @@ class ProductImagScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.all(18.0),
       child: AspectRatio(
-        aspectRatio: 1.2,
+        aspectRatio: 1.1,
         child: Image.network(
           img,
           fit: BoxFit.fill,

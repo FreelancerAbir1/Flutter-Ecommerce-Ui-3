@@ -24,7 +24,7 @@ class AccesoriesProductButton extends StatelessWidget {
         children: [
           Text(
             accesoriesProduct,
-            style: Theme.of(context).textTheme.headline6!.copyWith(
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   color: kPrimaryColor,
                 ),
           ),
@@ -34,7 +34,7 @@ class AccesoriesProductButton extends StatelessWidget {
               children: [
                 Text(
                   viewText,
-                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         color: kPrimaryColor,
                       ),
                 ),

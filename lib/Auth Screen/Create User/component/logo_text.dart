@@ -14,7 +14,7 @@ class SignInText extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 28.0),
       child: Text(
         text,
-        style: Theme.of(context).textTheme.headline1!.copyWith(
+        style: Theme.of(context).textTheme.displayLarge!.copyWith(
               fontSize: 30,
               fontWeight: FontWeight.bold,
               color: kTextLightColor.withAlpha(150),

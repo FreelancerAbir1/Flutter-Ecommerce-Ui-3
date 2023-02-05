@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../constant.dart';
-import '../../Home Screen/component/accessories_product_card.dart';
+import '../../Product Card/home_product_card.dart';
 import '../../Top Product Details/details_screen.dart';
 
 class Body extends StatelessWidget {
@@ -10,18 +10,6 @@ class Body extends StatelessWidget {
       FirebaseFirestore.instance.collection('accessories').snapshots();
 
   Body({super.key});
-//! Flutter toast here
-  flutterToast({required text}) {
-    Fluttertoast.showToast(
-        msg: text,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 2,
-        backgroundColor: kPrimaryColor,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -37,10 +25,13 @@ class Body extends StatelessWidget {
           }
           return GridView.builder(
             itemCount: snapshot.data!.docs.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2),
-            itemBuilder: (context, index) => AccessoriesProductCard(
-              accessoriesSnapshot: snapshot.data!.docs,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                mainAxisSpacing: 5.sp,
+                crossAxisSpacing: 5.sp,
+                childAspectRatio: 0.7.sp),
+            itemBuilder: (context, index) => HomeProductCard(
+              snapshot: snapshot.data!.docs,
               index: index,
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(

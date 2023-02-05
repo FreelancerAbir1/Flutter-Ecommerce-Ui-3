@@ -18,6 +18,7 @@ class ProductDesc extends StatelessWidget {
         style: TextStyle(
           fontSize: 16,
           fontWeight: kDefaultFontNormal.fontWeight,
+          color: kTextColor,
         ),
         maxLines: 5,
       ),

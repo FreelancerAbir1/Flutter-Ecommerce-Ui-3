@@ -17,7 +17,7 @@ class HeadlineEcommerce extends StatelessWidget {
         text,
         style: Theme.of(context)
             .textTheme
-            .headline1!
+            .displayLarge!
             .copyWith(color: kPrimaryColor, fontSize: 50.sp),
       ),
     );

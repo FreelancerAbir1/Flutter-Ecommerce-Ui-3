@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constant.dart';
@@ -17,10 +16,10 @@ class BottomMemo extends StatelessWidget {
         stream: cartItemCollection.snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Container(height: 150, child: Text('Something error'));
+            return const SizedBox(height: 150, child: Text('Something error'));
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Container(
+            return const SizedBox(
               height: 150,
               child: Text('Loading..'),
             );

@@ -16,7 +16,7 @@ class InformationText extends StatelessWidget {
       text,
       style: Theme.of(context)
           .textTheme
-          .subtitle1!
+          .titleMedium!
           .copyWith(color: kTextColor, fontSize: 16.sp),
     );
   }

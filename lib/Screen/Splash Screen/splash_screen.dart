@@ -21,7 +21,7 @@ class _SplashScreenCustomState extends State<SplashScreenCustom> {
     super.initState();
     Timer(
         const Duration(
-          seconds: 2,
+          seconds: 4,
         ), () {
       Navigator.of(context).pushReplacementNamed(AuthState.route);
     });
@@ -39,7 +39,7 @@ class _SplashScreenCustomState extends State<SplashScreenCustom> {
           children: [
             Text(
               'E-Commerce',
-              style: Theme.of(context).textTheme.headline1!.copyWith(
+              style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   fontSize: 50,
                   color: kTextLightColor,
                   fontWeight: FontWeight.bold),

@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../constant.dart';
+import '../../constant.dart';
 
 class TopProductButton extends StatelessWidget {
   final String topProduct;
@@ -24,7 +24,7 @@ class TopProductButton extends StatelessWidget {
         children: [
           Text(
             topProduct,
-            style: Theme.of(context).textTheme.headline6!.copyWith(
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   color: kPrimaryColor,
                 ),
           ),
@@ -34,7 +34,7 @@ class TopProductButton extends StatelessWidget {
               children: [
                 Text(
                   viewText,
-                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         color: kPrimaryColor,
                       ),
                 ),

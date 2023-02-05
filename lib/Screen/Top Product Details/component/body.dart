@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
+import 'package:flutter_ecommecre_ui3/constant.dart';
 import 'add_to_cart_btn.dart';
 import 'headline_img.dart';
 import 'product_des.dart';
@@ -45,6 +46,7 @@ class Body extends StatelessWidget {
       ),
     );
   }
+
   //! Add to cart screen method here
   Future addToCart(context) async {
     final user = FirebaseFirestore.instance.collection('cart-items');
@@ -59,12 +61,6 @@ class Body extends StatelessWidget {
       'img': snapShot[index]['img'],
       'price': snapShot[index]['price'],
       'name': snapShot[index]['name'],
-    }).then((value) => ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Added to cart'),
-              ),
-            ));
+    }).then((value) => flutterToast(text: 'Added to cart'));
   }
- 
 }
-
