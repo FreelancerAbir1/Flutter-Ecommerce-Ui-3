@@ -3,7 +3,7 @@ import 'package:date_time_picker/date_time_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommecre_ui3/constant.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; 
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../Screen/Home Screen/home_screen.dart';
 import 'custom_btn.dart';
@@ -27,7 +27,7 @@ class _BodyState extends State<Body> {
   FirebaseAuth auth = FirebaseAuth.instance;
   User? currentUser = FirebaseAuth.instance.currentUser;
   List item = ['Male', 'Female'];
-  String? items; 
+  String? items;
   final TextEditingController name = TextEditingController();
   final TextEditingController phone = TextEditingController();
   final TextEditingController birth = TextEditingController();
@@ -77,6 +77,7 @@ class _BodyState extends State<Body> {
                     text: 'We will not share information with anyone.'),
                 const SizedBox(height: kDefaultPadding * 2),
                 CustomFormField(
+                  textInputAction: TextInputAction.next,
                   focusNode: fullNameNode,
                   onFieldSubmitted: (value) {
                     FocusScope.of(context).requestFocus(numberNode);
@@ -89,6 +90,7 @@ class _BodyState extends State<Body> {
                 ),
                 SizedBox(height: kDefaultPadding.h),
                 CustomFormField(
+                  textInputAction: TextInputAction.next,
                   focusNode: numberNode,
                   onFieldSubmitted: (value) {
                     FocusScope.of(context).requestFocus(dateNode);
@@ -103,6 +105,7 @@ class _BodyState extends State<Body> {
                 pickDateTime(context),
                 SizedBox(height: kDefaultPadding.h),
                 CustomFormField(
+                  textInputAction: TextInputAction.next,
                   focusNode: genderNode,
                   onFieldSubmitted: (value) {
                     FocusScope.of(context).requestFocus(ageNode);
@@ -131,9 +134,13 @@ class _BodyState extends State<Body> {
                 ),
                 SizedBox(height: kDefaultPadding.h),
                 CustomFormField(
+                  textInputAction: TextInputAction.next,
                   focusNode: ageNode,
                   onFieldSubmitted: (value) {
                     FocusScope.of(context).unfocus();
+                    if (_key.currentState!.validate()) {
+                      sendProfileDataToDb();
+                    }
                   },
                   controller: age,
                   suffix: const Text(''),

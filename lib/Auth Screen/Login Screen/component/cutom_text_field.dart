@@ -15,6 +15,7 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? suffixIcon;
   final FocusNode focusNode;
   final Function(String) onFieldSubmitted;
+  final TextInputAction textInputAction;
   const CustomTextFormField({
     Key? key,
     required this.hintText,
@@ -26,7 +27,9 @@ class CustomTextFormField extends StatelessWidget {
     required this.onChange,
     required this.suffixIcon,
     required this.obscureText,
-    required this.focusNode, required this.onFieldSubmitted,
+    required this.focusNode,
+    required this.onFieldSubmitted,
+    required this.textInputAction,
   }) : super(key: key);
 
   @override
@@ -50,6 +53,8 @@ class CustomTextFormField extends StatelessWidget {
         ),
         Expanded(
           child: TextFormField(
+            autofocus: true,
+            textInputAction: textInputAction,
             onFieldSubmitted: onFieldSubmitted,
             focusNode: focusNode,
             obscureText: obscureText,

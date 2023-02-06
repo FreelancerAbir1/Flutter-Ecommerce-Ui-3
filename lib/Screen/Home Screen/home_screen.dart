@@ -34,7 +34,11 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (context) => const LoginScreen(),
       ));
     } on FirebaseAuthException {
-      return null;
+      await FirebaseAuth.instance.signOut();
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => const LoginScreen(),
+      ));
+      
     }
   }
 

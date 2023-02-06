@@ -9,6 +9,7 @@ class CustomFormField extends StatelessWidget {
   final TextEditingController controller;
   final Function(String) onFieldSubmitted;
   final FocusNode focusNode;
+  final TextInputAction textInputAction;
   const CustomFormField({
     Key? key,
     required this.hintText,
@@ -17,12 +18,14 @@ class CustomFormField extends StatelessWidget {
     required this.suffix,
     required this.controller,
     required this.onFieldSubmitted,
-    required this.focusNode,
+    required this.focusNode, required this.textInputAction,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofocus: true,
+      textInputAction: textInputAction,
       onFieldSubmitted: onFieldSubmitted,
       focusNode: focusNode,
       controller: controller,

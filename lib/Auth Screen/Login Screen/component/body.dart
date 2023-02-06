@@ -83,6 +83,7 @@ class _BodyState extends State<Body> {
                           height: 30.h,
                         ),
                         CustomTextFormField(
+                            textInputAction: TextInputAction.next,
                             onFieldSubmitted: (value) {
                               FocusScope.of(context).requestFocus(focusNode2);
                             },
@@ -104,8 +105,12 @@ class _BodyState extends State<Body> {
                           height: 20.h,
                         ),
                         CustomTextFormField(
+                            textInputAction: TextInputAction.send,
                             onFieldSubmitted: (value) {
                               FocusScope.of(context).unfocus();
+                              if (_key.currentState!.validate()) {
+                                signInWithEmailAndPassword(context);
+                              }
                             },
                             focusNode: focusNode2,
                             obscureText: obPassword,

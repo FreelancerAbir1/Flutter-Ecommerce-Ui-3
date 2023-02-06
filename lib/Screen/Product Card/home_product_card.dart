@@ -16,10 +16,10 @@ class HomeProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: EdgeInsets.all(kDefaultPadding.sp - 15.sp),
+    return Padding(
+      padding: EdgeInsets.all(8.sp),
+      child: GestureDetector(
+        onTap: onTap,
         child: Container(
           height: 130.h,
           width: 130.w,
