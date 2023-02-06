@@ -106,7 +106,7 @@ class _BodyState extends State<Body> {
                           hintText: 'Enter your email',
                           icon: Icons.email,
                           labelText: 'Email',
-                          validate: buildValidate,
+                          validate: validateEmail,
                         ),
                         SizedBox(
                           height: 20.h,
@@ -138,7 +138,7 @@ class _BodyState extends State<Body> {
                             hintText: 'must use 6 character',
                             icon: Icons.password,
                             labelText: 'password',
-                            validate: buildValidate),
+                            validate: validatePassword),
                         SizedBox(
                           height: 20.h,
                         ),
@@ -149,6 +149,10 @@ class _BodyState extends State<Body> {
                               FocusScope.of(context).unfocus();
                               if (_key.currentState!.validate()) {
                                 createUserWithEmailAndPassword(context);
+                              } else {
+                                setState(() {
+                                  onReload = true;
+                                });
                               }
                             },
                             obscureText: obRePassword,
@@ -172,7 +176,7 @@ class _BodyState extends State<Body> {
                             hintText: 're-type your pasword',
                             icon: Icons.password,
                             labelText: 'password',
-                            validate: buildValidate),
+                            validate: validatePassword),
                         SizedBox(
                           height: kDefaultPadding * 5.h,
                         ),
@@ -182,6 +186,10 @@ class _BodyState extends State<Body> {
                           onPress: () {
                             if (_key.currentState!.validate()) {
                               createUserWithEmailAndPassword(context);
+                            } else {
+                              setState(() {
+                                onReload = true;
+                              });
                             }
                           },
                         ),
@@ -208,16 +216,6 @@ class _BodyState extends State<Body> {
     );
   }
 
-  String? buildValidate(value) {
-    if (value == null || value.isEmpty) {
-      setState(() {
-        onReload = true;
-      });
-      return 'Please enter some text';
-    }
-    return null;
-  }
-
   Future createUserWithEmailAndPassword(context) async {
     setState(() {
       onReload = false;
@@ -239,7 +237,8 @@ class _BodyState extends State<Body> {
               MaterialPageRoute(
                 builder: (context) =>
                     CompleteForm(email: email, password: pass),
-              ));
+              )); 
+          rePass.clear();
         }
       } else if (email.text.isNotEmpty && pass.text != rePass.text) {
         setState(() {

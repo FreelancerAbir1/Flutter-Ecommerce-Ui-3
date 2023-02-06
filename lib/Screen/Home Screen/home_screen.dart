@@ -45,44 +45,48 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const HeadlineEcommerce(text: 'Ecommerce'),
-        actions: [
-          PopupMenuButton(
-            onSelected: (value) {},
-            itemBuilder: (BuildContext bc) {
-              return [
-                PopupMenuItem(
-                  value: '/about',
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: GestureDetector(
-                        onTap: () {}, child: const Text("About")),
-                  ),
-                ),
-                PopupMenuItem(
-                  value: '/setting',
-                  child: GestureDetector(child: const Text("Setting")),
-                ),
-                PopupMenuItem(
-                  value: '/logout',
-                  child: GestureDetector(
-                      onTap: () {
-                        signOut(context);
-                      },
-                      child: const Text("Log Out")),
-                ),
-              ];
-            },
-          )
-        ],
-      ),
+      appBar: buildAppBar(context),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: buildBottomNavBar(),
       body: const Body(),
+    );
+  }
+
+  AppBar buildAppBar(BuildContext context) {
+    return AppBar(
+      title: const HeadlineEcommerce(text: 'Ecommerce'),
+      actions: [
+        PopupMenuButton(
+          onSelected: (value) {},
+          itemBuilder: (BuildContext bc) {
+            return [
+              PopupMenuItem(
+                value: '/about',
+                child: GestureDetector(
+                  onTap: () {},
+                  child: GestureDetector(
+                      onTap: () {}, child: const Text("About")),
+                ),
+              ),
+              PopupMenuItem(
+                value: '/setting',
+                child: GestureDetector(child: const Text("Setting")),
+              ),
+              PopupMenuItem(
+                value: '/logout',
+                child: GestureDetector(
+                    onTap: () {
+                      signOut(context);
+                    },
+                    child: const Text("Log Out")),
+              ),
+            ];
+          },
+        )
+      ],
     );
   }
 

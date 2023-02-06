@@ -34,19 +34,7 @@ class MyApp extends StatelessWidget {
               elevation: 0,
               foregroundColor: kTextColor,
             ),
-            colorScheme: const ColorScheme(
-              background: kPrimaryColor,
-              onBackground: Colors.red,
-              brightness: Brightness.light,
-              error: Colors.blue,
-              surface: Colors.yellow,
-              onError: Colors.orange,
-              onSecondary: Colors.black87,
-              onPrimary: Colors.yellowAccent,
-              onSurface: Colors.redAccent,
-              secondary: kPrimaryColor,
-              primary: kPrimaryColor,
-            ),
+           
           ),
         );
       },

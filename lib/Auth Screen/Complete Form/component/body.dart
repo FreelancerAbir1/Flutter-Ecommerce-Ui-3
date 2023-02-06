@@ -86,7 +86,7 @@ class _BodyState extends State<Body> {
                   suffix: const Text(''),
                   hintText: 'Full Name',
                   onChange: (p0) {},
-                  validator: buildValidate,
+                  validate: validateName,
                 ),
                 SizedBox(height: kDefaultPadding.h),
                 CustomFormField(
@@ -99,7 +99,7 @@ class _BodyState extends State<Body> {
                   suffix: const Text(''),
                   hintText: 'Phone Number',
                   onChange: (p0) {},
-                  validator: buildValidate,
+                  validate: validateMobile,
                 ),
                 SizedBox(height: kDefaultPadding.h),
                 pickDateTime(context),
@@ -130,7 +130,9 @@ class _BodyState extends State<Body> {
                   ),
                   hintText: items == null ? 'Gender' : items.toString(),
                   onChange: (p0) {},
-                  validator: buildValidate,
+                  validate: (value) {
+                    return null;
+                  },
                 ),
                 SizedBox(height: kDefaultPadding.h),
                 CustomFormField(
@@ -140,13 +142,22 @@ class _BodyState extends State<Body> {
                     FocusScope.of(context).unfocus();
                     if (_key.currentState!.validate()) {
                       sendProfileDataToDb();
+                    } else {
+                      setState(() {
+                        onReload = true;
+                      });
                     }
                   },
                   controller: age,
                   suffix: const Text(''),
                   hintText: 'Age',
                   onChange: (p0) {},
-                  validator: buildValidate,
+                  validate: (value) {
+                    if (value!.length >= 3 || value.length <= 1) {
+                      return 'Valid age';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: kDefaultPadding * 2),
                 CustomButton(
@@ -154,6 +165,10 @@ class _BodyState extends State<Body> {
                   onPress: () {
                     if (_key.currentState!.validate()) {
                       sendProfileDataToDb();
+                    } else {
+                      setState(() {
+                        onReload = true;
+                      });
                     }
                   },
                   onRelaod: onReload,
@@ -169,31 +184,29 @@ class _BodyState extends State<Body> {
   DateTimePicker pickDateTime(BuildContext context) {
     return DateTimePicker(
         focusNode: dateNode,
-        dateHintText: 'Choose Date',
+        dateHintText: 'Choose Birth Date',
         onFieldSubmitted: (value) {
           FocusScope.of(context).requestFocus(genderNode);
         },
         initialValue: '',
+        decoration: const InputDecoration(
+            hintText: 'Choose Date',
+            suffixIcon: Icon(
+              Icons.calendar_month,
+            )),
         firstDate: DateTime(1990),
         lastDate: DateTime(2100),
-        dateLabelText: 'Date',
+        dateLabelText: 'Birth Date',
         onChanged: (val) => setState(() {
               birth.text = val;
             }),
-        validator: (val) {
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Please choose birthday date';
+          }
           return null;
         },
         onSaved: (val) {});
-  }
-
-  String? buildValidate(value) {
-    if (value == null || value.isEmpty) {
-      setState(() {
-        onReload = true;
-      });
-      return 'Please enter some text';
-    }
-    return null;
   }
 
   final user = FirebaseFirestore.instance.collection('user-profile');
@@ -208,17 +221,23 @@ class _BodyState extends State<Body> {
         widget.email.text.isNotEmpty &&
         widget.password.text.isNotEmpty) {
       return user.doc(currentUser!.email).set({
-        'name': name.text.trim(),
-        'phone': phone.text.trim(),
-        'birth': birth.text.trim(),
+        'name': name.text,
+        'phone': phone.text,
+        'birth': birth.text,
         'gender': items,
-        'age': age.text.trim(),
-        'email': widget.email.text.trim(),
-        'password': widget.password.text.trim(),
+        'age': age.text,
+        'email': widget.email.text,
+        'password': widget.password.text,
       }).then((value) {
         flutterToast(text: 'User details add successfully');
         Navigator.of(context).pushReplacementNamed(HomeScreen.route);
-
+        widget.email.clear();
+        widget.password.clear();
+        name.clear();
+        phone.clear();
+        birth.clear();
+        genders.clear();
+        age.clear();
         setState(() {
           onReload = true;
         });

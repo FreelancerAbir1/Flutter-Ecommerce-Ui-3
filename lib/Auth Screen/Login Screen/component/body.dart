@@ -83,58 +83,64 @@ class _BodyState extends State<Body> {
                           height: 30.h,
                         ),
                         CustomTextFormField(
-                            textInputAction: TextInputAction.next,
-                            onFieldSubmitted: (value) {
-                              FocusScope.of(context).requestFocus(focusNode2);
-                            },
-                            focusNode: focusNode1,
-                            obscureText: false,
-                            suffixIcon: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.email,
-                                )),
-                            onChange: (value) {},
-                            keyboardType: TextInputType.emailAddress,
-                            controller: email,
-                            hintText: 'Enter your Email',
-                            icon: Icons.email,
-                            labelText: 'Email',
-                            validate: buildValidate),
+                          textInputAction: TextInputAction.next,
+                          onFieldSubmitted: (value) {
+                            FocusScope.of(context).requestFocus(focusNode2);
+                          },
+                          focusNode: focusNode1,
+                          obscureText: false,
+                          suffixIcon: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.email,
+                              )),
+                          onChange: (value) {},
+                          keyboardType: TextInputType.emailAddress,
+                          controller: email,
+                          hintText: 'Enter your Email',
+                          icon: Icons.email,
+                          labelText: 'Email',
+                          validate: validateEmail,
+                        ),
                         SizedBox(
                           height: 20.h,
                         ),
                         CustomTextFormField(
-                            textInputAction: TextInputAction.send,
-                            onFieldSubmitted: (value) {
-                              FocusScope.of(context).unfocus();
-                              if (_key.currentState!.validate()) {
-                                signInWithEmailAndPassword(context);
-                              }
-                            },
-                            focusNode: focusNode2,
-                            obscureText: obPassword,
-                            suffixIcon: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    obPassword = !obPassword;
-                                  });
-                                },
-                                icon: obPassword
-                                    ? const Icon(
-                                        Icons.remove_red_eye,
-                                      )
-                                    : const Icon(
-                                        Icons.visibility_off,
-                                        color: kPrimaryColor,
-                                      )),
-                            onChange: (value) {},
-                            keyboardType: TextInputType.emailAddress,
-                            controller: pass,
-                            hintText: 'must use 6 character',
-                            icon: Icons.visibility,
-                            labelText: 'password',
-                            validate: buildValidate),
+                          textInputAction: TextInputAction.send,
+                          onFieldSubmitted: (value) {
+                            FocusScope.of(context).unfocus();
+                            if (_key.currentState!.validate()) {
+                              signInWithEmailAndPassword(context);
+                            } else {
+                              setState(() {
+                                onReload = true;
+                              });
+                            }
+                          },
+                          focusNode: focusNode2,
+                          obscureText: obPassword,
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  obPassword = !obPassword;
+                                });
+                              },
+                              icon: obPassword
+                                  ? const Icon(
+                                      Icons.remove_red_eye,
+                                    )
+                                  : const Icon(
+                                      Icons.visibility_off,
+                                      color: kPrimaryColor,
+                                    )),
+                          onChange: (value) {},
+                          keyboardType: TextInputType.emailAddress,
+                          controller: pass,
+                          hintText: 'must use 6 character',
+                          icon: Icons.password,
+                          labelText: 'password',
+                          validate: validatePassword,
+                        ),
                         SizedBox(
                           height: kDefaultPadding * 5.h,
                         ),
@@ -143,6 +149,10 @@ class _BodyState extends State<Body> {
                           onPress: () {
                             if (_key.currentState!.validate()) {
                               signInWithEmailAndPassword(context);
+                            } else {
+                              setState(() {
+                                onReload = true;
+                              });
                             }
                           },
                           onRelaod: onReload,
@@ -170,16 +180,6 @@ class _BodyState extends State<Body> {
     );
   }
 
-  String? buildValidate(value) {
-    if (value == null || value.isEmpty) {
-      setState(() {
-        onReload = true;
-      });
-      return 'Please enter some text';
-    }
-    return null;
-  }
-
   Future signInWithEmailAndPassword(context) async {
     setState(() {
       onReload = false;
@@ -195,6 +195,8 @@ class _BodyState extends State<Body> {
           onReload = true;
         });
         Navigator.of(context).pushReplacementNamed(HomeScreen.route);
+        email.clear();
+        pass.clear();
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

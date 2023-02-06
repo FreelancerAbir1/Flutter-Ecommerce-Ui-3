@@ -15,10 +15,11 @@ class HeadlineEcommerce extends StatelessWidget {
     return Center(
       child: Text(
         text,
-        style: Theme.of(context)
-            .textTheme
-            .displayLarge!
-            .copyWith(color: kPrimaryColor, fontSize: 50.sp),
+        style: Theme.of(context).textTheme.displayLarge!.copyWith(
+              color: kPrimaryColor,
+              fontSize: 50.sp,
+              fontWeight: FontWeight.bold,
+            ),
       ),
     );
   }
